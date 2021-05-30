@@ -1,23 +1,21 @@
 package com.model2.mvc.common.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
 
-/*
- * FileName : PojoAspectJ.java
- *	:: XML 에 선언적으로 aspect 의 적용   
-  */
+@Aspect
 public class LogAspectJ {
 
-	///Constructor
 	public LogAspectJ() {
 		System.out.println("\nCommon :: "+this.getClass()+"\n");
 	}
 	
-	//Around  Advice
+	@Around("execution(* com.model2.mvc.service..*DAOImpl.*(..) )")
 	public Object invoke(ProceedingJoinPoint joinPoint) throws Throwable {
 			
 		System.out.println("");
-		System.out.println("[Around before] 타겍객체.메서드 :"+
+		System.out.println("[Around before] 메서드 :"+
 													joinPoint.getTarget().getClass().getName() +"."+
 													joinPoint.getSignature().getName());
 		if(joinPoint.getArgs().length !=0){

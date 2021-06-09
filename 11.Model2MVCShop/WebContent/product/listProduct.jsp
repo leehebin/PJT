@@ -78,7 +78,7 @@
 			});
 						
 			//==> userId LINK Event End User 에게 보일수 있도록  ????????????????????????
-			$( "td:nth-child(2)" ).css("color" , "red");
+			$( "td:nth-child(2)" ).css("color" , "blue");
 			
 		});	
 		
@@ -91,6 +91,27 @@
 			
 				var prodNo = $(this).next().val();
 		
+				$.ajax( 
+						{
+							url : "/product/getJsonProduct/"+prodNo ,
+							method : "GET" ,
+							dataType : "json" ,
+							headers : {
+								"Accept" : "application/json",
+								"Content-Type" : "application/json"
+							},
+							success : function(JSONData , status) {
+								var displayValue = "<h6>"
+															+"상품번호 : "+JSONData.product.prodNo+"<br/>"
+															+"상 품명 : "+JSONData.product.prodName+"<br/>"
+															+"상세정보 : "+JSONData.product.prodDetail+"<br/>"
+															+"가"+"&nbsp;&nbsp;"+"격"+"&nbsp;:&nbsp;"+JSONData.product.price+"<br/>"
+															+"등록일자 : "+JSONData.product.regDate+"<br/>"
+															+"</h6>";
+								
+								$("h3").remove();
+								$( "#"+prodNo+"" ).html(displayValue);
+							}
 					}); 
 						////////////////////////////////////////////////////////////////////////////////////////////
 					
